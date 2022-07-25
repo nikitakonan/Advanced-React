@@ -8,7 +8,7 @@ const NavStyles = styled.ul`
   font-size: 1rem;
   a,
   button {
-    padding: 1rem 3rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
     position: relative;
@@ -61,7 +61,7 @@ const NavStyles = styled.ul`
     border-top: 1px solid var(--lightGray);
     width: 100%;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 `;
 
