@@ -3,7 +3,7 @@ import { CartItemCreateInput } from '../.keystone/schema-types';
 import { Session } from '../types';
 
 export default async function addToCart(
-  _root: any,
+  root: any,
   { productID }: { productID: string },
   context: KeystoneContext
 ): Promise<CartItemCreateInput> {
