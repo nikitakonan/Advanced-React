@@ -32,7 +32,6 @@ export default function Search() {
   const [findItems, { loading, data }] = useLazyQuery(SEARCH_PRODUCT_QUERY, {
     fetchPolicy: 'no-cache',
   });
-  console.log(data);
   const items = data?.searchTerms ?? [];
   const findItemsButChill = debounce(findItems, 350);
   resetIdCounter();
@@ -47,7 +46,6 @@ export default function Search() {
   } = useCombobox({
     items,
     onInputValueChange() {
-      console.log('input changed');
       findItemsButChill({
         variables: {
           searchTerm: inputValue,
