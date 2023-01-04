@@ -40,7 +40,6 @@ const OrderUl = styled.ul`
 
 export default function OrderPage() {
   const { data, loading, error } = useQuery(USER_ORDERS_QUERY);
-  console.log(data);
 
   if (loading) {
     return <p>Loading...</p>;
