@@ -35,7 +35,7 @@ interface IUser {
 }
 
 export default async function checkout(
-  root: any,
+  _root: undefined,
   { token }: IArguments,
   context: KeystoneContext
 ): Promise<OrderCreateInput> {
