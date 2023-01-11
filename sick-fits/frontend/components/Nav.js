@@ -1,5 +1,6 @@
+import { useAtom } from 'jotai';
 import Link from 'next/link';
-import { useCart } from '../lib/cartState';
+import { cartAtom } from '../lib/cartState';
 import CartCount from './CartCount';
 import SignOut from './SignOut';
 import NavStyles from './styles/NavStyles';
@@ -7,7 +8,7 @@ import { useUser } from './User';
 
 export default function Nav() {
   const user = useUser();
-  const { openCart } = useCart();
+  const [, setCartOpen] = useAtom(cartAtom);
 
   return (
     <NavStyles>
@@ -18,7 +19,7 @@ export default function Nav() {
           <Link href="/orders">Orders</Link>
           <Link href="/account">Account</Link>
           <SignOut />
-          <button type="button" onClick={openCart}>
+          <button type="button" onClick={() => setCartOpen(true)}>
             My Cart
             <CartCount
               count={user.cart.reduce(

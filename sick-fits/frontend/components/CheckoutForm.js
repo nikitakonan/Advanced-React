@@ -1,11 +1,12 @@
 import { useMutation } from '@apollo/client';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import gql from 'graphql-tag';
+import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import nProgress from 'nprogress';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { useCart } from '../lib/cartState';
+import { cartAtom } from '../lib/cartState';
 import SickButton from './styles/SickButton';
 import { CURRENT_USER_QUERY } from './User';
 
@@ -38,7 +39,7 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
-  const { closeCart } = useCart();
+  const [, setCartOpen] = useAtom(cartAtom);
   const [checkout, { error: gqlError }] = useMutation(CREATE_ORDER_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
@@ -64,7 +65,7 @@ export default function CheckoutForm() {
       pathname: `/order`,
       query: { id: order.data.checkout.id },
     });
-    closeCart();
+    setCartOpen(false);
 
     setLoading(false);
     nProgress.done();

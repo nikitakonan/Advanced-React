@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ApolloProvider } from '@apollo/client';
+import { Provider } from 'jotai';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import PropTypes from 'prop-types';
 import Page from '../components/Page';
 import '../components/styles/nprogress.css';
-import { CartStateProvider } from '../lib/cartState';
 import withData from '../lib/withData';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
@@ -15,11 +15,11 @@ Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps, apollo }) {
   return (
     <ApolloProvider client={apollo}>
-      <CartStateProvider>
+      <Provider>
         <Page>
           <Component {...pageProps} />
         </Page>
-      </CartStateProvider>
+      </Provider>
     </ApolloProvider>
   );
 }

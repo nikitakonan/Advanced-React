@@ -1,14 +1,15 @@
-import styled from 'styled-components';
+import { useAtom } from 'jotai';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import calcTotalPrice from '../lib/calcTotalPrice';
+import { cartAtom } from '../lib/cartState';
+import formatMoney from '../lib/formatMoney';
+import Checkout from './Checkout';
+import RemoveFromCart from './RemoveFromCart';
 import CartStyles from './styles/CartStyles';
 import CloseButton from './styles/CloseButton';
 import Supreme from './styles/Supreme';
-import formatMoney from '../lib/formatMoney';
 import { useUser } from './User';
-import calcTotalPrice from '../lib/calcTotalPrice';
-import { useCart } from '../lib/cartState';
-import RemoveFromCart from './RemoveFromCart';
-import Checkout from './Checkout';
 
 const CartItemStyles = styled.li`
   padding: 1rem 0;
@@ -66,14 +67,14 @@ CartItem.propTypes = {
 
 export default function Cart() {
   const me = useUser();
-  const { cartOpen, closeCart } = useCart();
+  const [isCartOpen, setCartOpen] = useAtom(cartAtom);
   if (!me) return null;
 
   return (
-    <CartStyles open={cartOpen}>
+    <CartStyles open={isCartOpen}>
       <header>
         <Supreme>{me.name}'s Cart</Supreme>
-        <CloseButton onClick={closeCart}>&times;</CloseButton>
+        <CloseButton onClick={() => setCartOpen(false)}>&times;</CloseButton>
       </header>
       <ul>
         {me.cart.map((cartItem) => (
